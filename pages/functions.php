@@ -17,9 +17,6 @@ function register($login, $pass, $email) {
         return false;
     }
 
-
-
-
     // занесение данных в текстовый файл
     // ключи:
     // + - если файл не созда, то создать его
@@ -48,4 +45,25 @@ function register($login, $pass, $email) {
     fputs($file, $line);
     fclose($file);
     return true;
+}
+
+
+function login($login, $pass) {
+    $login = trim(htmlspecialchars($login));
+    $pass = trim(htmlspecialchars($pass));
+
+    $file = fopen('pages/users.txt', 'r');
+    while($line = fgets($file)) {
+        $line_array = explode(':', trim($line));
+        $readname = $line_array[0];
+        $readpass = $line_array[1];
+//        echo "$readname ------------ $readpass<br>";
+
+        if($readname === $login && $readpass === md5($pass)) {
+            $_SESSION['registered_user'] = $login;
+            echo "<h3 class='text-success'>Login and pass are correct</h3>";
+            return true;
+        }
+    }
+    return false;
 }

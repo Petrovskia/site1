@@ -1,3 +1,6 @@
+<?php
+session_start(); // запускаем сессию, которая позволяет запомнить текущего пользователя
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -13,7 +16,7 @@
         <div class="row">
             <header class="col-12">
                 <?php
-                    error_reporting(E_ALL);
+                    error_reporting(E_ERROR | E_WARNING | E_PARSE);
                     require_once('pages/functions.php');
                 ?>
             </header>
